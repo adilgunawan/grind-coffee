@@ -10,9 +10,10 @@ include 'koneksi.php';
   $image = $_POST["image"];
   $slogan = $_POST["slogan"];
   $deskripsi = $_POST["deskripsi"];
+  $category = $_POST["category"];
 
   
-  $query = mysqli_query($koneksi, "INSERT INTO produk_kopi VALUES(NULL, '$nama', '$harga', '$stok','$deskripsi', '$slogan', '$image' )");
+  $query = mysqli_query($koneksi, "INSERT INTO produk_kopi VALUES(NULL, '$nama', '$harga', '$stok','$deskripsi', '$slogan', '$image', '$category' )");
   
 
   if ($query){

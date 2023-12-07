@@ -1,25 +1,41 @@
 <?php 
 session_start();
 
+// Nyambungin ke db
+include "database/koneksi.php";
+
 // Pastikan user sudah login sebelum mengakses halaman ini
 if (!isset($_SESSION["email"])) {
     header("Location: login.php");
     exit();
 }
 
+
 $user_id = $_SESSION["user_id"];
+
+$query_user = mysqli_query($koneksi, "SELECT * FROM users WHERE id = '$user_id'");
+
+// Check for query execution success
+if ($query_user) {
+    // Fetch the user data
+    $user_data = mysqli_fetch_assoc($query_user);
+    $alamat_user = $user_data['alamat'];
+} else {
+    // Handle query execution failure
+    echo "Error: " . mysqli_error($koneksi);
+}
+
+
 $grand_total = $_SESSION['grand_total'];
 $biaya_layanan = 1000;
 $biaya_ongkir = 20000;
 
 
-// Nyambungin ke db
-include "database/koneksi.php";
 
 // Get data dari tabel users berdasarkan email yang sedang login
 $query_checkout = mysqli_query(
     $koneksi,
-    "SELECT * FROM checkout WHERE user_id='$user_id'"
+    "SELECT * FROM checkout WHERE user_id='$user_id' AND status = 0"
 );
 
 // Fetch all rows from the checkout table for the user
@@ -197,27 +213,26 @@ include 'templates/header.php';
     border-bottom: 0px solid #c56e33; /* Warna garis bawah */
     }
 
-    thead, td, p {}
-
     
 </style>
 
 
 <div class="cowrap">
+<form action="database/checkout.php" method="post">
     <div class="cotext" style="padding-left:20px;">
         <img src="images/cart.png" alt="" style="width:25px;height:25px;margin-top:20px;"><h3>Checkout</h3>
     </div>
     <div class="dipesan">
         <div class="border"><img src="images/strip.png" alt=""></div>
             <div class="dipesandesc"><img src="images/gps.png" alt="" style="width:18px;height:25px;margin-top:10px;">
-                <p style="font-weight: 700;">Alamat Pengirim</p>
+                <p style="font-weight: 700;">Alamat Penerima</p>
             </div>
         <div class="detailpelanggan">
             <div class="notelp">
-                <p>Adil Gunawan(+62)<br>81911020216</p>
+                <p><?php echo $user_data['first_name'].' '.$user_data['last_name']  ?><br><?php echo $user_data['no_telp']?></p>
             </div>
             <div class="alamat" style="width: 80%; height: auto;">
-                <p>BATAM CENTER, JL.AHMAD YANI, TLK.TERING, KEC. BATAM KOTA, KOTA BATAM, KEPULAUAN RIAU 29461</p>
+                <p><?php echo $alamat_user?></p>
             </div>
         </div>
     </div>
@@ -269,7 +284,7 @@ include 'templates/header.php';
                 
         </div>
     </div>
-    <div class="metode-pembayaran opsi">
+    <!-- <div class="metode-pembayaran opsi">
         <div><h3>Metode Pembayaran</h3></div>
         <div class="pilihan">
             <div class="box">COD</div>
@@ -281,7 +296,25 @@ include 'templates/header.php';
             <div class="box">JNT</div>
             <div class="box">Shopee Express</div>
         </div>
+    </div> -->
+    <div class="metode-pembayaran opsi">
+    <div>
+        <h3>Metode Pembayaran</h3>
+        <select name="payment_method" id="paymentMethod">
+            <option value="COD">COD</option>
+            <option value="Transfer Bank">Transfer Bank</option>
+        </select>
     </div>
+    <div>
+        <h3>Metode Pengiriman</h3>
+        <select name="shipping_method" id="shippingMethod">
+            <option value="JNE">JNE</option>
+            <option value="JNT">JNT</option>
+            <option value="Shopee Express">Shopee Express</option>
+        </select>
+    </div>
+               
+</div>
     <div class="total opsi">
         <div class="perhitungan">
             <table>
@@ -300,13 +333,19 @@ include 'templates/header.php';
                 <tr style="font-weight: bold; font-size: 20px">
                     <td > <p>Grand Total :</td>
                     <td>Rp. <?php echo $grand_total + $biaya_layanan + $biaya_ongkir?></td>
+                    <?php 
+                    $_SESSION['final_total'] = $grand_total + $biaya_layanan + $biaya_ongkir;
+                    // echo $_SESSION['final_total'];
+                    ?>
                 </tr>
             </table>
         </div>
         <div class="button-order">
-            <button type="submit">Checkout Keranjang</button>
+           <button style="margin-right: 10px" ><a style="text-decoration:none; color:white; " href="database/cancel_checkout.php">Batalkan Checkout</a></button> 
+            <button style="background-color: #31452c" type="submit">Checkout Keranjang</button>
         </div>
     </div>
+    </form>
 </div>
 
 

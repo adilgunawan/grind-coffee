@@ -1,52 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Rufina&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      src="https://kit.fontawesome.com/aa225e1aa6.js"
-      crossorigin="anonymous"
-    ></script>
-    <title>Grind Coffe</title>
-  </head>
-  <body>
-    <nav>
-      <div class="posisilogo">
-        <a href=""
-          ><img
-            src="images/grindcoffee-high-resolution-logo-white-on-transparent-background.png"
-            alt=""
-            class="gambarlogo"
-          />
-        </a>
-      </div>
-      <div class="textheader">
-        <a href="aboutus.html"><h3>About Us</h3></a>
-        <a href="menukopi.php"><h3>Menu</h3></a>
-        <a href="contactus.html"><h3>Kontak</h3></a>
-        <a href="profil.php"><h3>Profil</h3></a>
-        <a href="menukopi.html"><h3>TokoKu</h3></a>
-        <a href=""><i class="fa-solid fa-bell" style="color: white"></i></a>
-        <a href=""
-          ><i class="fa-solid fa-cart-shopping" style="color: white"></i
-        ></a>
-        <a href="login.php"><h3>Login</h3></a>
-      </div>
-    </nav>
+<?php
+session_start();
+// Pastikan user sudah login sebelum mengakses halaman ini
+if (!isset($_SESSION['email'])) {
+  header("Location: login.php");
+  exit();
+}
+
+include 'templates/header.php';
+?>
 
     <div class="posisibannertengah">
       <div class="bannertengah">
@@ -66,7 +27,7 @@
         <div class="triangledown1"></div>
       </div>
       <div class="product1">
-        <a href="menubijikopi.html">
+        <a href="menubijikopi.php">
           <div class="productbg">
             <img src="images/Rectangle 7 (1).png" alt="" />
           </div>
@@ -76,7 +37,7 @@
         <div class="triangledown1"></div>
       </div>
       <div class="product1">
-        <a href="menumerch.html">
+        <a href="menumerch.php">
           <div class="productbg">
             <img src="images/Rectangle 7 (2).png" alt="" />
           </div>
@@ -90,6 +51,50 @@
     <div class="pilihanitem">
       <h5>PILIH RASA ANDA</h5>
       <div class="itemproducts">
+      <?php
+       include 'database/koneksi.php';
+
+       $query = mysqli_query($koneksi, "SELECT * FROM produk_kopi WHERE jenis_produk='merchandise'");
+       
+       while($data = mysqli_fetch_assoc($query)){
+       ?> 
+
+        <div class="box">
+          <div style="overflow:hidden">
+            <img  src="images/<?php echo $data["image"]?>" alt="" />
+          </div>
+          <h1><?php echo $data['nama'];?></h1>
+          <h5><?php echo $data['slogan'];?></h5>
+          <h2 style="text-align: center">Rp <?php echo $data['harga'];?></h2>
+          <div class="tersisa">
+            <h6>Tersisa <?php echo $data['stok'];?> buah</h6>
+            <i class="fa-regular fa-square-minus"></i>
+            <i class="fa-regular fa-square-plus"></i>
+          </div>
+          <div class="posisirating">
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="btnbeli">
+              <a href='product_detail.php?id=<?php echo $data['id']?>'
+                ><button class="btnbelis"><h3>Beli Sekarang</h3></button></a
+              >
+              <button class="btnkeranjang">
+                <h3>Masukkan Keranjang</h3>
+                <i class="fa-solid fa-cart-shopping"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <?php 
+       }
+      ?>
+      <!-- <div class="itemproducts">
         <div class="box">
           <div>
             <img src="images/merch1.png" alt="" />
@@ -397,46 +402,11 @@
       <div class="posisiselanjutnya">
         <button>Selanjutnya --></button>
       </div>
-    </div>
+    </div> -->
     <br />
     <br />
-    <div class="bgfooter">
-      <div class="footer">
-        <div class="item1">
-          <img
-            src="images/grindcoffee-high-resolution-logo-white-on-transparent-background.png"
-            alt=""
-          />
-        </div>
-        <div class="item2">
-          <div class="quicklink">
-            <h1>Quick Link</h1>
-            <a href=""><h2>Profil</h2></a>
-            <a href=""><h2>Menu</h2></a>
-            <a href=""><h2>Contact</h2></a>
-            <a href=""><h2>About Us</h2></a>
-          </div>
-          <div class="Support">
-            <h1>Support</h1>
-            <a href=""><h2>Email</h2></a>
-            <a href=""><h2>WhatsApp</h2></a>
-          </div>
-        </div>
-      </div>
-      <div class="posisiicon">
-        <div class="iconsosmed">
-          <i class="fa-brands fa-instagram"></i>
-          <i class="fa-brands fa-facebook"></i>
-        </div>
-      </div>
+    <br>
 
-      <div class="garistengah">
-        <div class="garis"></div>
-      </div>
-
-      <div class="posisicopyright">
-        Copyright © Grind Coffee. All rights reserved.
-      </div>
-    </div>
-  </body>
-</html>
+  <?php
+  include 'templates/footer.php';
+  ?>

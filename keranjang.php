@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "templates/header.php";
 
 // Pastikan user sudah login sebelum mengakses halaman ini
 if (!isset($_SESSION["email"])) {
@@ -24,7 +25,7 @@ while ($row = mysqli_fetch_assoc($query_cart)) {
     $data_cart[] = $row;
 }
 
-include "templates/header.php";
+
 ?>
 
 <div class="sectionkeranjang">
@@ -113,17 +114,13 @@ include "templates/header.php";
         </div>
 
         <div class="ringkasan">
-            <h1>Ringkasan Belanja</h1>
-            <!-- <div class="totalbarang">
-                <h5>Total Harga (2) Barang</h5>
-                <h5>Rp.90.000,00</h5>
-            </div> -->
-            <hr />
-            <div class="totalhargas">
+            <h1>Checkout Produk</h1>
+            <!-- <hr /> -->
+            <!-- <div class="totalhargas">
                 <h5>Total Harga <?php echo count($data_cart)?> Barang</h5>
-                <h5>Rp.90.000,00</h5>
-            </div>
-            <button name="checkout_cart" type="submit">Beli (2)</button>
+                <h5><?php echo $data_cart[0]['id']?></h5>
+            </div> -->
+            <button name="checkout_cart" type="submit">Beli</button>
         </div>
     </div>
     </form>

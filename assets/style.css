@@ -1888,8 +1888,8 @@ input[type="number"]::-webkit-inner-spin-button {
   border-radius: 10px;
   background-color: #31452c;
   width: 300px;
-  height: 300px;
-  margin-top: 150px;
+  height: 150px;
+  margin-top: 50px;
   border: 1px solid white;
 }
 

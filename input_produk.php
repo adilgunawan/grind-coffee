@@ -57,7 +57,7 @@ include 'templates/header.php';
                     </div>
                     <div class="boxcontactus">
                       <label for="">Slogan Produk*</label>
-                      <input name="slogan" type="text" placeholder="Nama Produk" />
+                      <input name="slogan" type="text" placeholder="Slogan Produk" />
                     </div>
                     <div class="boxcontactus">
                       <label for="">Deskripsi*</label>
@@ -74,8 +74,16 @@ include 'templates/header.php';
                       </div>
                       <div class="boxcontactus" >
                         <label for="">Image*</label>
-                        <input name="image" type="file" placeholder="Nama image" />
+                        <input name="image" s type="file" placeholder="Nama image" />
                       </div>
+                    </div>
+                    <div class="boxcontactus"> 
+                    <label for="">Jenis Produk*</label>
+                      <select name="category" style="background-color:#31452c; color:white; padding:15px; border-radius:10px">
+                          <option value="minuman">Minuman</option>
+                          <option value="biji_kopi">Biji Kopi</option>
+                          <option value="merchandise">Merchandise</option>
+                      </select>
                     </div>
                 
                     <button style="background-color: #c56e33">Update Data</button>

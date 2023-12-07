@@ -143,7 +143,7 @@ $rekening = "999 021 0990 9992 78";
             Total pembayaran
             </div>
             <div class="total">
-            Rp.100.000,00 <!-- ganti jadi variabel total belanja-->
+            Rp. <?php echo $_SESSION['final_total']?><!-- ganti jadi variabel total belanja-->
             </div>
         </div>
         <div class="secbawah">
@@ -200,7 +200,7 @@ $rekening = "999 021 0990 9992 78";
                             <li>Kirim SMS "Transfer <b style="color:#C56E33"><?php echo $rekening?></b><b>Rp. 100.000</b>" ke 3346</li>
                             <li>Balas SMS yang masuk dengan <b>Benar</b></li>
                         </ol>
-                        <button class="btnok">OK</button>
+                        <a href="database/checkout.php"><button  class="btnok">OK</button></a>
                     </div>
                     </div>
                 </div>

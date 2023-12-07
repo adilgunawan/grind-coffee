@@ -26,7 +26,7 @@ include 'templates/header.php';
         <div class="triangledown"></div>
       </div>
       <div class="product1">
-        <a href="menubijikopi.html">
+        <a href="menubijikopi.php">
           <div class="productbg">
             <img src="images/Rectangle 7 (1).png" alt="" />
           </div>
@@ -36,7 +36,7 @@ include 'templates/header.php';
         <div class="triangledown1"></div>
       </div>
       <div class="product1">
-        <a href="menumerch.html">
+        <a href="menumerch.php">
           <div class="productbg">
             <img src="images/Rectangle 7 (2).png" alt="" />
           </div>
@@ -56,7 +56,7 @@ include 'templates/header.php';
       <?php
        include 'database/koneksi.php';
 
-       $query = mysqli_query($koneksi, "SELECT * FROM produk_kopi");
+       $query = mysqli_query($koneksi, "SELECT * FROM produk_kopi WHERE jenis_produk='minuman'");
        
        while($data = mysqli_fetch_assoc($query)){
        ?> 

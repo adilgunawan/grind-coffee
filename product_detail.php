@@ -65,17 +65,34 @@ while($data = mysqli_fetch_assoc($query)){
               </div>
               <h5>1</h5>
               <i class="fa-solid fa-plus"></i> -->
-              <div class="ukuransize">
-            <input style="height:40px; margin-bottom:36px" type="number" name="quantity" placeholder="Jumlah Produk"/>
-            <input type="hidden" name="produk_id" value="<?php echo $data['id']?>">
-          </div>
+              <div class="ukuransize" style="margin-top: 0px; gap:10px;">
+                <button type="button" class="quantity-button" onclick="decrementQuantity()"><i class="fa-solid fa-minus"></i></button>
+                  <input style="height: 30px; padding-left:10px; width:20px" type="number" name="quantity" id="quantity" placeholder="0" value="1" min="1" />
+                  <button type="button" class="quantity-button" onclick="incrementQuantity()"><i class="fa-solid fa-plus"></i></button>
+                <input type="hidden" name="produk_id" value="<?php echo $data['id']?>">
+              </div>
         </div>
+        <script>
+            function incrementQuantity() {
+                var quantityInput = document.getElementById('quantity');
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+            }
+
+            function decrementQuantity() {
+                var quantityInput = document.getElementById('quantity');
+                var currentValue = parseInt(quantityInput.value);
+
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1;
+                }
+            }
+        </script>
         
             <div class="rectanglekeranjang">
-              <input type="submit" name="add_to_cart"  value="Masukkan Keranjang">
-              <!-- <button>
+              <!-- <input type="submit" name="add_to_cart"  value="Masukkan Keranjang"> -->
+              <button name="add_to_cart" type="submit">
                 Masukkan Keranjang<i class="fa-solid fa-cart-shopping"></i>
-              </button> -->
+              </button>
             </div>
             <div class="belisekarang">
               <button>Beli Sekarang</button>

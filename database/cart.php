@@ -107,7 +107,7 @@ if (isset($_POST['selected_cart']) && is_array($_POST['selected_cart'])) {
     $selectedCartIds = $_POST['selected_cart'];
     // var_dump($selectedCartIds);
 
-    $grand_total = 0;
+    $grand_total = $_SESSION['grand_total'];
 
     foreach ($selectedCartIds as $cartId) {
         // Lakukan sesuatu dengan setiap $cartId, seperti menyimpan ke database
@@ -119,13 +119,8 @@ if (isset($_POST['selected_cart']) && is_array($_POST['selected_cart'])) {
         
          // Fetch data cart detail
          if ($cart_detail = mysqli_fetch_assoc($query_cart_detail)) {
-            // Cetak hasil query untuk melihatnya
-            echo "Hasil Query untuk Cart ID $cartId:<br>";
-            var_dump($cart_detail);
-            echo "<br>";
 
             $produk_id = $cart_detail['produk_id'];
-            // echo($produk_id);
             
             $query_price = mysqli_query(
                 $koneksi,
@@ -142,8 +137,8 @@ if (isset($_POST['selected_cart']) && is_array($_POST['selected_cart'])) {
             // Insert data into checkout table
             $insert_checkout_query = mysqli_query(
                 $koneksi,
-                "INSERT INTO checkout (user_id, cart_id, produk_id, total_harga, tanggal_order, quantity)
-                VALUES ('$user_id', '$cartId', '$produk_id', '$total_harga', CURRENT_TIMESTAMP, '$quantity')"
+                "INSERT INTO checkout (user_id, cart_id, produk_id, total_harga, tanggal_order, quantity, status)
+                VALUES ('$user_id', '$cartId', '$produk_id', '$total_harga', CURRENT_TIMESTAMP, '$quantity', 0)"
             );
 
             // delete cart by id
@@ -154,7 +149,7 @@ if (isset($_POST['selected_cart']) && is_array($_POST['selected_cart'])) {
 
             if($insert_checkout_query) {
                 echo "<script>
-                alert('Produk berhasil dihapus dari keranjang !');
+                alert('Produk berhasil dicheckout dari keranjang !');
                 document.location='../checkout.php';
                 </script>";
             } else {
@@ -170,6 +165,7 @@ if (isset($_POST['selected_cart']) && is_array($_POST['selected_cart'])) {
 
         }
     }
+
     $_SESSION['grand_total'] = $grand_total;
     echo "Grand Total: $grand_total";
 }
