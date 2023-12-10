@@ -1,6 +1,6 @@
 <?php
-session_start();
 
+include 'templates/header.php';
 // Pastikan user sudah login sebelum mengakses halaman ini
 if (!isset($_SESSION['email'])) {
     header("Location: login.php");
@@ -19,7 +19,6 @@ $profil = mysqli_fetch_assoc($query);
 // var_dump($profil["first_name"]);
 
 
-include 'templates/header.php';
 ?>
 
     <section class="content_profil">

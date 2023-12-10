@@ -1,4 +1,3 @@
-
 <?php
 
 //nyambungin ke db

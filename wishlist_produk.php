@@ -1,6 +1,5 @@
-
 <?php
-session_start();
+include 'templates/header.php';
 
 // Pastikan user sudah login sebelum mengakses halaman ini
 if (!isset($_SESSION['email'])) {
@@ -39,7 +38,7 @@ while($data = mysqli_fetch_assoc($query)){
 }
 
 
-include 'templates/header.php';
+
 ?>
 
 

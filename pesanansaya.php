@@ -1,6 +1,5 @@
-
 <?php
-session_start();
+include 'templates/header.php';
 
 // Pastikan user sudah login sebelum mengakses halaman ini
 if (!isset($_SESSION['email'])) {
@@ -9,7 +8,7 @@ if (!isset($_SESSION['email'])) {
 }
 
 
-include 'templates/header.php';
+
 ?>
 
     <div class="sectionprofil">

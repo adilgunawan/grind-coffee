@@ -1,4 +1,3 @@
-
 <?php
 #nyambungin file ini ke database
 include 'koneksi.php';

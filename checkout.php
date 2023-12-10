@@ -1,6 +1,5 @@
 <?php 
-session_start();
-
+include 'templates/header.php';
 // Nyambungin ke db
 include "database/koneksi.php";
 
@@ -45,7 +44,7 @@ while ($row = mysqli_fetch_assoc($query_checkout)) {
 }
 
 
-include 'templates/header.php';
+
 ?>
 
 <style>

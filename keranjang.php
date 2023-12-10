@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include "templates/header.php";
 
 // Pastikan user sudah login sebelum mengakses halaman ini

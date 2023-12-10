@@ -1,7 +1,5 @@
-
 <?php
-session_start();
-
+include 'templates/header.php';
 // Pastikan user sudah login sebagai admin sebelum mengakses halaman ini
 if (!isset($_SESSION['email']) || ($_SESSION['role'] !== "1")) {
     header("Location: ./login.php");
@@ -10,7 +8,7 @@ if (!isset($_SESSION['email']) || ($_SESSION['role'] !== "1")) {
 //nyambungin ke db
 include 'database/koneksi.php';
 
-include 'templates/header.php';
+
 ?>
 
 
