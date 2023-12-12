@@ -83,10 +83,10 @@ while ($row = mysqli_fetch_assoc($query_cart)) {
                                 <div style="display:flex; overflow:wrap; width:350px">
                                     <img style="height: 150px; margin-top:25px; margin-right:10px" src="images/<?php echo $data_produk["image"]; ?>" alt="" />
                                     <div>
-                                    <h5 style="font-weigh:bold; font-size:20px;"><?php echo $data_produk["nama"]; ?></h5>
-                                    <p>Size: <span><?php echo $item_cart["size_level"]; ?></span></p>
-                                    <p>Sugar: <span><?php echo $item_cart["sugar_level"]; ?></span></p>
-                                    <p>Ice: <span><?php echo $item_cart["ice_level"]; ?></span></p>
+                                        <h5 style="font-weigh:bold; font-size:20px;"><?php echo $data_produk["nama"]; ?></h5>
+                                        <p>Size: <span><?php echo $item_cart["size_level"]; ?></span></p>
+                                        <p>Sugar: <span><?php echo $item_cart["sugar_level"]; ?></span></p>
+                                        <p>Ice: <span><?php echo $item_cart["ice_level"]; ?></span></p>
                                     </div>
                                     </div>
                                 </div>  

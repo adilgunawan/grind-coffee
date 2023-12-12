@@ -12,9 +12,11 @@ while ($row = mysqli_fetch_assoc($query_checkout)) {
     $data_order[] = $row;
     // $alamat_user = $row['alamat'];
 }
+
+var_dump($data_order);
 $alamat_user = $data_order[0]['alamat'];
 
-$user_id = $_SESSION["user_id"];
+$user_id = $data_order[0]['user_id'];
 
 $query_user = mysqli_query($koneksi, "SELECT * FROM users WHERE id = '$user_id'");
 

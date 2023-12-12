@@ -23,8 +23,12 @@ if (!isset($_SESSION['email'])) {
           <div class="menu">
             <i class="fa-solid fa-address-book"><h5>Daftar Alamat</h5></i>
           </div>
-          <div class="menu">
+          <!-- <div class="menu">
             <i class="fa-solid fa-clipboard-list"><h5>Pesanan Saya</h5></i>
+            <hr />
+          </div> -->
+          <div class="menu">
+            <i class="fa-solid fa-clipboard-list"><h5>Semua Saya</h5></i>
             <hr />
           </div>
           <div class="menu">
@@ -55,7 +59,7 @@ if (!isset($_SESSION['email'])) {
 
         // Fetch all orders for the logged-in user
         $user_id = $_SESSION['user_id'];
-        $query_orders = mysqli_query($koneksi, "SELECT * FROM orders WHERE user_id = '$user_id'");
+        $query_orders = mysqli_query($koneksi, "SELECT * FROM orders WHERE user_id = '$user_id' ORDER BY tanggal_order DESC");
 
         while ($order = mysqli_fetch_assoc($query_orders)) {
             // You can customize the display based on your requirements
@@ -83,6 +87,8 @@ if (!isset($_SESSION['email'])) {
                     $produk_id = $item_checkout['produk_id'];
                     $query_produk_detail = mysqli_query($koneksi, "SELECT * FROM produk_kopi WHERE id = '$produk_id'");
                     $data_produk = mysqli_fetch_assoc($query_produk_detail);
+
+                    
                 ?>
                     <div class="productpesanan">
                         <div class="imageproductpesanan">
@@ -90,6 +96,47 @@ if (!isset($_SESSION['email'])) {
                             <div class="textproductpesanan">
                                 <h3><?php echo $data_produk['nama']; ?></h3>
                                 <h5>x<?php echo $item_checkout['quantity']; ?></h5>
+                                
+                                <h5>Estimasi Sampai : <span><?php 
+                                  // var_dump($item_checkout['pengiriman']);
+                                  // $pengiriman = $item_checkout['pengiriman'];
+                                  // var_dump($item_checkout['order_id']);
+
+                                  $order_id_checkout = $item_checkout['order_id'];
+                                  $query_get_order = mysqli_query($koneksi, "SELECT * FROM orders WHERE id = $order_id_checkout");
+                                  $result_get_order = mysqli_fetch_assoc($query_get_order);
+                                  // var_dump($result_get_order);
+                                  $pengiriman = $result_get_order['pengiriman'];
+                                  // if($pengiriman == 'JNT' && $data_produk['jenis_produk'] == 'minuman') {
+                                  //   $est = '15 sampai 30 menit';
+                                  // } else if ($pengiriman == 'JNE'){
+                                  //   $est = '15 sampai 20 hari';
+                                  // }
+
+                                  if($data_produk['jenis_produk'] == 'minuman'){
+                                    if($pengiriman == 'JNT'){
+                                      $est = '15 sampai 30 menit';
+                                    } else {
+                                      $est = '45 menit sampai 1 jam';
+                                    }
+
+                                  } else if ($data_produk['jenis_produk'] == 'biji_kopi'){
+                                    if($pengiriman == 'JNT'){
+                                      $est = '5 sampai 7 hari';
+                                    } else {
+                                      $est = '7 menit sampai 11 hari';
+                                    }
+
+                                  } else {
+                                    if($pengiriman == 'JNT'){
+                                      $est = '5 sampai 7 hari';
+                                    } else {
+                                      $est = '7 menit sampai 11 hari';
+                                    }
+                                  }
+
+                                ?> <?php echo $est?></span></h5>
+                                <h></h>
                             </div>
                         </div>
                         <div class="hargaitem">

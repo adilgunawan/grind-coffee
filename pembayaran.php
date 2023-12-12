@@ -1,5 +1,12 @@
 <?php
 include 'templates/header.php';
+
+$selected_shipping = urldecode($_GET['shipping_method']);
+$selected_payment = urldecode($_GET['payment_method']);
+
+// var_dump($selected_payment, $selected_shipping);
+// die();
+
 ?>
 <script>
 function copyText() {
@@ -200,7 +207,13 @@ $rekening = "999 021 0990 9992 78";
                             <li>Kirim SMS "Transfer <b style="color:#C56E33"><?php echo $rekening?></b><b>Rp. 100.000</b>" ke 3346</li>
                             <li>Balas SMS yang masuk dengan <b>Benar</b></li>
                         </ol>
-                        <a href="database/checkout.php"><button  class="btnok">OK</button></a>
+                        <form action="database/checkoutBNI.php" method="post" enctype="multipart/form-data">
+                            <label for="gambar">Bukti Transfer :</label>
+                            <input type="file" name="bukti_tf" id="gambar">
+                            <input type="hidden" name="payment_method" value="<?php echo $selected_payment?>">
+                            <input type="hidden" name="shipping_method" value="<?php echo $selected_shipping?>">
+                            <button type="submit">Kirim</button>
+                        </form>
                     </div>
                     </div>
                 </div>

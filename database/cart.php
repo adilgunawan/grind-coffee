@@ -13,12 +13,33 @@ if (isset($_POST['add_to_cart'])) {
     $size_level = $_POST['size_level']; // Dapatkan nilai size_level dari formulir
     $sugar_level = $_POST['sugar_level']; // Dapatkan nilai sugar_level dari formulir
     $ice_level = $_POST['ice_level']; // Dapatkan nilai ice_level dari formulir
+
+    if ($size_level == NULL && $sugar_level == NULL && $ice_level == NULL) {
+        // echo(0);
+        addToCartBM($user_id, $produk_id, $quantity);
+    } else {
+        // echo(1);
+          addToCart($user_id, $produk_id, $quantity, $size_level, $sugar_level, $ice_level);
+    }
    
 
     // Panggil fungsi addToCart dengan parameter yang diperlukan
-    addToCart($user_id, $produk_id, $quantity, $size_level, $sugar_level, $ice_level);
+    // addToCart($user_id, $produk_id, $quantity, $size_level, $sugar_level, $ice_level);
 }
 
+function addToCartBM($user_id, $produk_id, $quantity){
+    include 'koneksi.php';
+
+    $query_insert_cart = mysqli_query($koneksi, "INSERT INTO cart (id, user_id, produk_id, quantity, size_level, sugar_level, ice_level) VALUES (NULL, '$user_id', '$produk_id', '$quantity', NULL, NULL, NULL)");
+
+    if ($query_insert_cart)
+    {
+        echo "<script>
+        alert('Produk berhasil ditambahkan ke keranjang !');
+        document.location='../keranjang.php';
+        </script>";
+    }
+}
 
 function addToCart($user_id, $produk_id, $quantity, $size_level, $sugar_level, $ice_level) {
     include 'koneksi.php';
